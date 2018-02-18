@@ -6,14 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include <Commands/Command.h>
+#include <Commands/DrivetrainForward.h>
+#include <Commands/MobilityAuton.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <TimedRobot.h>
 
-#include "Commands/ExampleCommand.h"
-#include "Commands/MyAutoCommand.h"
 
 class Robot : public frc::TimedRobot {
 public:

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "MyAutoCommand.h"
+#include <Commands/MobilityAuton.h>
 
 MyAutoCommand::MyAutoCommand() {
 	// Use Requires() here to declare subsystem dependencies

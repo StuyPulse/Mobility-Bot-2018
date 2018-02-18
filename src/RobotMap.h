@@ -5,7 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+using namespace std;
+
+int main ()
+{
+	//Drivetrain!
+	constexpr int TopLeftMotor = 1;
+	constexpr int TopRightMotor = 2;
+	constexpr int BottomLeftMotor = 3;
+	constexpr int BottomRightMotor = 4;
+}
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
