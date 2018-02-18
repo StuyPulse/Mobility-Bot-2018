@@ -18,9 +18,15 @@ Drivetrain::Drivetrain() :
 void Drivetrain::InitDefaultCommand() {
 
 }
-void Drivetrain::MoveForward() {
+void Drivetrain::DriveForward() {
 	TopLeftMotor->Set(1);
 	TopRightMotor->Set(1);
 	BottomLeftMotor->Set(1);
 	BottomRightMotor->Set(1);
+}
+void Drivetrain::Stop() {
+	TopLeftMotor->Set(0);
+	TopRightMotor->Set(0);
+	BottomLeftMotor->Set(0);
+	BottomRightMotor->Set(0);
 }

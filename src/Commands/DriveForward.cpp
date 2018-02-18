@@ -5,27 +5,34 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <Commands/DrivetrainForward.h>
+#include <Commands/DriveForward.h>
 
-ExampleCommand::ExampleCommand() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(&Robot::chassis);
+DriveForward::DriveForward() {
+	Requires(Robot::Drivetrain);
+	SetTimeout(4);
 }
 
 // Called just before this Command runs the first time
-void ExampleCommand::Initialize() {}
+void DriveForward::Initialize() {
+	Robot::Drivetrain->DriveForward();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void ExampleCommand::Execute() {}
+void DriveForward::Execute() {
+}
 
 // Make this return true when this Command no longer needs to run execute()
-bool ExampleCommand::IsFinished() {
-	return false;
+bool DriveForward::IsFinished() {
+	return IsTimedOut();
 }
 
 // Called once after isFinished returns true
-void ExampleCommand::End() {}
+void DriveForward::End() {
+	Robot::drivetrain->Stop();
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ExampleCommand::Interrupted() {}
+void DriveForward::Interrupted() {
+	End();
+}
