@@ -8,13 +8,19 @@
 #include <Subsystems/Drivetrain.h>
 #include "../RobotMap.h"
 
-ExampleSubsystem::ExampleSubsystem()
-    : frc::Subsystem("ExampleSubsystem") {}
-
-void ExampleSubsystem::InitDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// SetDefaultCommand(new MySpecialCommand());
+Drivetrain::Drivetrain() :
+	Subsystem("Drivetrain") {
+	TopLeftMotor = RobotMap::TOP_LEFT_MOTOR;
+	TopRightMotor = RobotMap::TOP_RIGHT_MOTOR;
+	BottomLeftMotor = RobotMap::BOTTOM_LEFT_MOTOR;
+	BottomRightMotor = RobotMap::BOTTOM_RIGHT_MOTOR;
 }
+void Drivetrain::InitDefaultCommand() {
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+}
+void Drivetrain::MoveForward() {
+	TopLeftMotor->Set(1);
+	TopRightMotor->Set(1);
+	BottomLeftMotor->Set(1);
+	BottomRightMotor->Set(1);
+}

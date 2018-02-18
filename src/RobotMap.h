@@ -10,10 +10,10 @@ using namespace std;
 int main ()
 {
 	//Drivetrain!
-	constexpr int TopLeftMotor = 1;
-	constexpr int TopRightMotor = 2;
-	constexpr int BottomLeftMotor = 3;
-	constexpr int BottomRightMotor = 4;
+	constexpr int TOP_LEFT_MOTOR = 1;
+	constexpr int TOP_RIGHT_MOTOR = 2;
+	constexpr int BOTTOM_LEFT_MOTOR = 3;
+	constexpr int BOTTOM_RIGHT_MOTOR = 4;
 }
 
 /**
