@@ -5,17 +5,63 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "ExampleSubsystem.h"
+#include "RobotMap.h"
+#include "Drivetrain.h"
 
-#include "../RobotMap.h"
+Drivetrain::Drivetrain() : Subsystem("Drivetrain") {
+	_leftFrontMotor = new WPI_TalonSRX(LEFT_FRONT_MOTOR_PORT);
+	_leftRearMotor = new WPI_TalonSRX(LEFT_REAR_MOTOR_PORT);
+	_rightFrontMotor = new WPI_TalonSRX(RIGHT_FRONT_MOTOR_PORT);
+	_rightRearMotor = new WPI_TalonSRX(RIGHT_REAR_MOTOR_PORT);
 
-ExampleSubsystem::ExampleSubsystem()
-    : frc::Subsystem("ExampleSubsystem") {}
+	_leftEncoders = new frc::Encoder(LEFT_ENCODER_CHANNEL_A, LEFT_ENCODER_CHANNEL_B);
+	_rightEncoders = new frc::Encoder(RIGHT_ENCODER_CHANNEL_A, RIGHT_ENCODER_CHANNEL_B);
 
-void ExampleSubsystem::InitDefaultCommand() {
+	_gearShift = new frc::Solenoid(GEAR_SHIFT_CHANNEL);
+
+	_differentialDrive = new frc::DifferentialDrive(_leftRearMotor, _rightRearMotor);
+
+	_leftFrontMotor->Follow(*_leftRearMotor);
+	_rightFrontMotor->Follow(*_rightRearMotor);
+
+	_leftFrontMotor->SetInverted(true);
+	_leftRearMotor->SetInverted(true);
+	_rightFrontMotor->SetInverted(true);
+	_rightRearMotor->SetInverted(true);
+
+	_leftEncoders->SetDistancePerPulse(DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+	_rightEncoders->SetDistancePerPulse(DRIVETRAIN_ENCODER_INCHES_PER_PULSE);
+}
+
+void Drivetrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 }
+void Drivetrain::EncodersReset(){
+	_leftEncoders->Reset();
+	_rightEncoders->Reset();
+}
+double Drivetrain::GetLeftEncoderDistance(){
+	return _leftEncoders->GetDistance();
+}
+double Drivetrain::GetRightEncoderDistance(){
+	return _rightEncoders->GetDistance();
+}
+double Drivetrain::GetEncoderDistance(){
+	double left = GetLeftEncoderDistance();
+	double right = GetRightEncoderDistance();
+	return std::max(left, right);
+}
+void Drivetrain::TankDrive(double left, double right){
+	_differentialDrive->TankDrive(left, right, false);
+}
+void Drivetrain::ArcadeDrive(double y, double x){
+	_differentialDrive->ArcadeDrive(y, x, false);
+}
+void Drivetrain::DrivetrainStop(){
+	_differentialDrive->TankDrive(0, 0, false);
+	_differentialDrive->ArcadeDrive(0, 0, false);
+}
+Drivetrain::~Drivetrain(){
+}
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.

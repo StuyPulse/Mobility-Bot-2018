@@ -37,7 +37,7 @@ public:
 	Joystick * _driverPad  = new Joystick(0);
 	Joystick * _operatorPad = new Joystick(1);
 
-	DifferentialDrive * _differentialDrive = new DifferentialDrive(*_leftRearMotor, *_rightRearMotor);
+	DifferentialDrive * _differentialDrive = new DifferentialDrive(_leftRearMotor, _rightRearMotor);
 
 	Timer * _timer = new Timer();
 
@@ -67,6 +67,9 @@ public:
 	}
 
 	void AutonomousPeriodic() {
+		using namespace std;
+		cout<<_rightEncoders->GetDistance()<<endl;
+		cout<<_leftEncoders->GetDistance()<<endl;
 		/*_differentialDrive->ArcadeDrive(1, 0, false);
 		_differentialDrive->TankDrive(1, 1, false);
 		if(_timer->Get() >= 1.5){
@@ -89,8 +92,8 @@ public:
 
 	void TeleopPeriodic() {
 		using namespace std;
-		cout<<_rightEncoders->Get()<<endl;
-		cout<<_leftEncoders->Get()<<endl;
+		cout<<_rightEncoders->GetDistance()<<endl;
+		cout<<_leftEncoders->GetDistance()<<endl;
 		if(_operatorPad->GetRawButton(1) == true){
 			_hopperMotor->Set(1);
 		}

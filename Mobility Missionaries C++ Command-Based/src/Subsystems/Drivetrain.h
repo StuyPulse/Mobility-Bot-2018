@@ -8,13 +8,50 @@
 #pragma once
 
 #include <Commands/Subsystem.h>
+#include "../RobotMap.h"
+#include "ctre/Phoenix.h"
+#include "Drive/DifferentialDrive.h"
+#include <Encoder.h>
+#include <Solenoid.h>
+#include <ADXRS450_Gyro.h>
+#include <PIDController.h>
 
-class ExampleSubsystem : public frc::Subsystem {
-public:
-	ExampleSubsystem();
-	void InitDefaultCommand() override;
-
+class Drivetrain : public frc::Subsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
+
+	frc::Encoder * _leftEncoders;
+	frc::Encoder * _rightEncoders;
+
+	WPI_TalonSRX * _leftFrontMotor;
+	WPI_TalonSRX * _leftRearMotor;
+	WPI_TalonSRX * _rightFrontMotor;
+	WPI_TalonSRX * _rightRearMotor;
+
+	frc::DifferentialDrive * _differentialDrive;
+
+	frc::ADXRS450_Gyro * gyro;
+
+	frc::Solenoid * _gearShift;
+
+	double * _currents[];
+
+	frc::PIDController * _pid;
+
+    bool gearUp; // Stores the state of the gear shift
+    bool overrideAutoGearShifting; // True if automatic gear shifting is not being used
+    bool autoGearShiftingState; // True if automatic gear shifting was disabled and never re-enabled
+
+public:
+	Drivetrain();
+	void InitDefaultCommand() override;
+	double GetGyroAngle();
+	void EncodersReset();
+	double GetLeftEncoderDistance();
+	double GetRightEncoderDistance();
+	double GetEncoderDistance();
+	void TankDrive(double left, double right);
+	void ArcadeDrive(double y, double x);
+	void DrivetrainStop();
+	~Drivetrain();
 };
+
